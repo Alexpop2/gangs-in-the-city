@@ -60,7 +60,7 @@ watch(numberOfPlayers, (el) => {
 <template>
     <Head title="Gangs in the city helper" />
 
-    <div class="relative flex justify-between items-center min-h-screen min-h-[100svh] bg-gradient-to-br from-slate-800 to-slate-600 flex-col">
+    <div class="relative flex justify-between items-center min-h-[100svh] bg-gradient-to-br from-slate-800 to-slate-600 flex-col">
         <div class="max-w-7xl mx-auto p-6">
             <div class="text-center justify-center">
                 <Logo class="h-24" />
