@@ -5,6 +5,7 @@ import {reactive, ref, watch} from "vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
+import InputError from "@/Components/InputError.vue";
 
 defineProps({
     canLogin: Boolean,
@@ -19,8 +20,13 @@ const gameState = ref(0);
 const numberOfPlayers = ref("2");
 const currentPlayer = ref(1);
 const police = ref(false);
+const numberOfPlayersError = ref(false);
 
 const addCircle = function () {
+    if(!(numberOfPlayers.value >= 2 && numberOfPlayers.value <= 8)) {
+        numberOfPlayersError.value = true;
+        return;
+    }
     if(gameState.value === 0 || gameState.value === 2) {
         gameState.value = 1;
         return;
@@ -50,7 +56,7 @@ const addCircle = function () {
 }
 
 watch(numberOfPlayers, (el) => {
-    if(!(el >= 2 && el <= 8)) {
+    if(!(el >= 2 && el <= 8) && el !== "") {
         console.log(numberOfPlayers);
         numberOfPlayers.value = "2";
     }
@@ -72,6 +78,12 @@ watch(numberOfPlayers, (el) => {
                 <div
                     v-if="gameState === 0"
                 >
+                    <Transition name="fade">
+                        <InputError
+                            v-if="numberOfPlayersError"
+                            message="Number of players must be from 2 to 8"
+                        />
+                    </Transition>
                     <div class="text-white">Number of players:</div>
                     <input
                         v-model="numberOfPlayers"
